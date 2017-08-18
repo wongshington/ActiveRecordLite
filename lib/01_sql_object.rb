@@ -18,6 +18,7 @@ class SQLObject
 
   end
 
+
   def self.finalize!
 
     self.columns.each do |col|
@@ -41,10 +42,10 @@ class SQLObject
   end
 
   def self.all
-    result = {}
-    @params.each do |el|
-      el
-    end
+    # result = {}
+    # @params.each do |el|
+    #   el
+    # end
 
   end
 
@@ -57,6 +58,16 @@ class SQLObject
   end
 
   def initialize(params = {})
+    #  self.class.columns.each do |col|
+    #   params[col.to_sym] =
+    # end
+    p params
+    params.each do |k,v|
+      k = k.to_sym
+      raise "unknown attribute '#{k}'" unless self.class.columns.include?(k)
+      send("#{k}=", v)
+
+    end
 
   end
 
